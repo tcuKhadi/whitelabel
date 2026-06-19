@@ -1,0 +1,40 @@
+# Wikipedia
+wiki/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Environment files
+api/.env
+.env
+src/.env
+
+
+# Frontend generated config
+frontend/assets/js/config.js
+
+# Azure / Bicep
+*.bicepparam.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage / test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node (if any tooling needed)
+node_modules/
