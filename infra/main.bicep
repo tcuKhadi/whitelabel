@@ -52,6 +52,24 @@ module defender 'modules/defender.bicep' = {
   }
 }
 
+module cosmosPostgres 'modules/cosmos-pg.bicep' = {
+  name: 'cosmos-pg'
+  params: {
+    name: '${projectName}-pg-${environment}'
+    location: location
+    administratorLogin: administratorLogin
+    administratorLoginPassword: administratorLoginPassword
+  }
+}
+
+module blobStorage 'modules/blob-storage.bicep' = {
+  name: 'blob-storage'
+  params: {
+    name: '${projectName}store${environment}'
+    location: location
+    managedIdentityPrincipalId: identity.outputs.principalId
+  }
+}
 output staticWebAppUrl string = staticWebApp.outputs.url
 output containerAppUrl string = containerApp.outputs.url
 output keyVaultUri string = keyVault.outputs.uri
