@@ -1,0 +1,33 @@
+name: Deploy API
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ACR Login
+        run: az acr login --name whitelabelacrdev
+
+      - name: Build and Push
+        run: |
+          docker build -t whitelabelacrdev.azurecr.io/whitelabel-api:${{ github.sha }} ./api
+          docker push whitelabelacrdev.azurecr.io/whitelabel-api:${{ github.sha }}
+
+      - name: Deploy to Container Apps
+        run: |
+          az containerapp update \
+            --name whitelabel-api-dev \
+            --resource-group whitelabel-rg \
+            --image whitelabelacrdev.azurecr.io/whitelabel-api:${{ github.sha }}
