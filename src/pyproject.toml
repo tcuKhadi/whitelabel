@@ -1,0 +1,7 @@
+[project]
+name = "WhiteLabel"
+version = "0.1.0"
+description = "WhiteLabel API FastAPI backend for a real estate platform built entirely on Microsoft Azure.
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
